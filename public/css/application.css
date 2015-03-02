@@ -7015,3 +7015,13 @@ footer .footer-below {
     display: none;
     opacity: 0;
 }
+
+.back-button {
+  margin-top: 2em;
+  font-weight: bold;
+}
+
+.subtitle {
+  margin-top: -1em;
+  margin-bottom: 1em;
+}

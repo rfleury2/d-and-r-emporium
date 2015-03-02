@@ -3,8 +3,6 @@ get "/" do
   erb :index
 end
 
-
-
 get '/users/login' do
   erb :"users/login"
 end
@@ -12,7 +10,6 @@ end
 post '/users/login' do
   @user = User.find_by(username: params[:user][:username])
   if @user && @user.password == params[:user][:password]
-    puts @user
     session[:user_id] = @user.id
     redirect '/'
   else
@@ -25,19 +22,24 @@ post '/users' do
   @user = User.create(params[:user])
   if @user
     session[:user_id] = @user.id
-    puts @user
-    redirect '/'
+    @user.cart = Cart.create()
+    if @user.save
+      redirect '/'
+    else
+      @errors = "Could not create new cart"
+      erb :"users/new"
+    end
   else
     @errors = "Your username or password was invalid"
     erb :"users/new"
   end
 end
 
-get '/users/new' do   ### Doesn't work yet
+get '/users/new' do
   erb :"users/new"
 end
 
-get '/users/logout' do   ### Doesn't work yet
+get '/users/logout' do
   session.delete(:user_id)
   redirect '/'
 end

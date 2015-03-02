@@ -1,0 +1,35 @@
+<section id="portfolio">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+
+      <% if @products %>
+        <h2 class="subtitle"><%= @category.name %></h2>
+          <% @category.products.each do |product| %>
+            <p><a href="/categories/<%=@category.id %>/products/<%= product.id %>"><%=product.name %></a></p>
+          <% end %>
+
+      <% else %>
+
+        <h2 class="subtitle"><%= @product.name %> - $<%= @product.price %></h2>
+
+        <form name="add_item" action='/carts' method='post'>
+          <input type="hidden" name="product_id" value="<%= @product.id %>">
+          <button type="submit" class="btn btn-success btn-lg">Add to Cart</button>
+
+          <!-- if @product belongs in cart
+            remove button
+          end  -->
+
+        </form>
+
+        <p class="back-button"><a href='/categories/<%= @category.id %>'>Back to <%= @category.name %></a></p>
+
+      <% end %>
+
+        <p class="back-button"><a href='/categories'>Back to all Categories</a></p>
+
+      </div>
+    </div>
+  </div>
+</section>

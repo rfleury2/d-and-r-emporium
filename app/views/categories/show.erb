@@ -1,0 +1,12 @@
+<section id="portfolio">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h2 class="subtitle">Categories</h2>
+        <% @categories.each do |category| %>
+          <p><a href="/categories/<%=category.id %>/products"><%=category.name %></a></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
