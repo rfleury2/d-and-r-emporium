@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   has_one :cart, foreign_key: :shopper_id
   has_many :cart_items, through: :cart, foreign_key: :shopper_id
+  has_many  :orders, through: :cart, source: :shopper
 
   include BCrypt
 

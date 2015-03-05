@@ -3,16 +3,22 @@
     <div class="row">
       <div class="col-lg-12 text-center">
         <h2 class="subtitle">Cart Items</h2>
-        <% @products.each_with_index do |product, index| %>
+        <% @cart_items.each_with_index do |cart_item, index| %>
           <p>
-            <%= index + 1 %> - <%= product.name %>
-            <form name="remove_item" action='/' method='post'>
+            <%= index + 1 %> - <%= cart_item.product.name %> - $ <%= cart_item.product.price %>
+            <form name="remove_item" action='/carts/<%= cart_item.id %>' method='post'>
               <input type="hidden" name="_method" value="delete">
-              <button type="submit" class="btn btn-success btn-lg">Remove Item (WIP)</button>
+              <button type="submit" class="btn btn-success btn-lg">Remove Item</button>
             </form>
-
           </p>
         <% end %>
+        <h1>
+          Total = $<%= @user.cart.total%>
+        </h1>
+          <form name="remove_item" action="/carts/<%= @user.cart.id %>/orders" method='post'>
+            <button type="submit" class="btn btn-success btn-lg">Checkout</button>
+          </form>
+        <p class="back-button"><a href='/categories'>Shop More</a></p>
       </div>
     </div>
   </div>

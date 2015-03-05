@@ -1,0 +1,15 @@
+<section id="portfolio">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h2 class="subtitle">Cart Items</h2>
+        <% @orders.each_with_index do |order, index| %>
+          <p>
+            <%= index + 1 %> - $ <%= order.total %>
+          </p>
+        <% end %>
+        <p class="back-button"><a href='/categories'>Shop More</a></p>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,15 +1,21 @@
 get '/carts' do
   @user = User.find_by(id: session[:user_id])
-  # @products = CartItem.where(shopper: @user) # Must establish an @products
+  @cart_items = @user.cart.cart_items
   erb :"carts/show"
 end
 
 post '/carts' do
   @user = User.find_by(id: session[:user_id])
-  cart_item = @user.cart.cart_items.create
-  cart_item.product_id = params[:product_id] ### Cart Item should have a .products.  Revisit the association
-  cart_item.save
-  if @user.save ### Do we need this?
+  if @user
+    cart_item = @user.cart.cart_items.create(product: Product.find_by(id: params[:product_id]))
     redirect '/carts'
+  else
+    redirect '/users/login'
   end
+end
+
+delete '/carts/:id' do
+  @user = User.find_by(id: session[:user_id])
+  CartItem.find_by(id: params[:id]).destroy
+  redirect '/carts'
 end
